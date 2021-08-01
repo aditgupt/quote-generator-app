@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>
+        Quote Page
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<style>
+    html {
+        box-sizing: border-box;
+    }
+
+    body {
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: #DFDBE5;
+        background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%23000000' fill-opacity='0.14'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        display: flex;
+        color: black;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Quote-Container {
+        display: flex;
+        margin-top: 20%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+        color: black;
+        background-color: whitesmoke;
+        border-radius: 1%;
+        opacity: 0.8;
+    }
+
+    .Quote {
+        font-weight: 500;
+        margin: 5px;
+        font-size: 175%;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .Tweet-button {
+        margin-left: 10px;
+        margin-right: auto;
+        /* float:left; */
+
+    }
+
+    .Author {
+        font-size: 150%;
+    }
+
+    .Quote-button {
+        margin-left: auto;
+        margin-right: 10px;
+        /* float: right; */
+    }
+
+    .fa-quote-left {
+        font-size: 3rem;
+    }
+
+    @media screen and (max-width:600px) {
+        .Quote-Container {
+            margin-top: 40px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    }
+</style>
+
+<body>
+    <div class="Quote-Container">
+        <div id="msg" class="Quote">
+            Never stop trying.
+        </div>
+        <div id="au" class="Author">
+            Author: Myself
+        </div>
+        <div class="button-container">
+            <button id="twt" type="button" class="Tweet-button">Tweet</button></a>
+            <button id="bon" type="button" class="Quote-button">Quote</button>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('bon').addEventListener('click', funo);
+    function funo() {
+        fetch('https://type.fit/api/quotes').then((response) => {
+            return response.json();
+        }).then((data) => {
+            a = data[Math.floor(Math.random() * data.length)];
+            console.log(a);
+            // console.log(data[Math.floor(Math.random()*100 + 1)]);
+            let msg = document.getElementById('msg');
+            msg.innerText = a.text;
+            let au = document.getElementById('au');
+            au.innerText = 'Author: ' + a.author;
+        })
+    }
+
+
+
+    document.getElementById('twt').addEventListener('click', adk);
+    function adk() {
+
+        let msg = document.getElementById('msg');
+        window.open(`https://twitter.com/intent/tweet?text=${msg.innerText}`);
+
+    }
+</script>
+
+</html>
